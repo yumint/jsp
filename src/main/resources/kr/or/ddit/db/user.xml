@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+  <select id="selectUserAll" resultType="userVo">
+     SELECT * 
+       FROM JSPUSER
+  </select>
+  
+  <select id="selectUser" parameterType="String" resultType="userVo">
+     SELECT *
+	   FROM JSPUSER
+      WHERE USERID = #{USERID}
+  </select>
+  
+  <select id="selectUserByVo" parameterType="userVo" resultType="userVo">
+     SELECT *
+	   FROM JSPUSER
+      WHERE USERID = #{userId}
+  </select>
+  
+  <select id="selectUserPageList" parameterType="int" resultType="userVo">
+	SELECT 
+	        *
+	  FROM
+	        (SELECT ROWNUM AS RNUM , JSPUSER.* 
+	  FROM  JSPUSER 
+  ORDER BY  USERID)
+	 WHERE  RNUM BETWEEN #{PAGE}*#{PAGESIZE}-#{PAGESIZE}-1 AND #{PAGE}*#{PAGESIZE}
+  </select>
+  
+  
+</mapper>
+
