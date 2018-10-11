@@ -1,4 +1,4 @@
-package kr.or.ddit.user.Dao;
+package kr.or.ddit.user.userDao;
 
 import java.util.List;
 
@@ -28,11 +28,16 @@ public class UserDao implements UserDaoInf {
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session = factory.openSession();
 		
+		
+		List<UserVo> list = session.selectList("user.selectUserAll");
+		
+		session.close();
+		
 		// 매개변수가 없어서 값을 주지 않아도 된다 
 		// 여러건을 조회할때에는 selectList를 사용한다
 		// selectOne : 데이터가 한건 일 떄 
 		// 메소드 인자 : 문자열 = 네임스페이스(일반적으로 모듈명을 이용) .쿼리아이디 
-		return session.selectList("user.selectUserAll");
+		return list;
 	}
 	
 	// jspuser 테이블 테이터 전체 조회 쿼리 
@@ -41,11 +46,15 @@ public class UserDao implements UserDaoInf {
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session = factory.openSession();
 		
+		UserVo user = session.selectOne("user.selectUser",userId);
+		
+		session.close();
+		
 		// 매개변수가 없어서 값을 주지 않아도 된다 
 		// 여러건을 조회할때에는 selectList를 사용한다
 		// selectOne : 데이터가 한건 일 떄 
 		// 메소드 인자 : 문자열 = 네임스페이스(일반적으로 모듈명을 이용) .쿼리아이디 
-		return session.selectOne("user.selectUser",userId);
+		return user;
 	}
 	
 	
@@ -53,29 +62,59 @@ public class UserDao implements UserDaoInf {
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session = factory.openSession();
 		
+		UserVo user = session.selectOne("user.selectUserByVo", userVo);
+		
+		session.close();
+		
 		// 매개변수가 없어서 값을 주지 않아도 된다 
 		// 여러건을 조회할때에는 selectList를 사용한다
 		// selectOne : 데이터가 한건 일 떄 
 		// 메소드 인자 : 문자열 = 네임스페이스(일반적으로 모듈명을 이용) .쿼리아이디 
-		return session.selectOne("user.selectUserByVo", userVo);
+		return user;
 		
 	}
 
 
+	// 페이징 처리 
 	@Override
-	public List<PageVo> selectUserPageList(UserVo userVo) {
+	public List<UserVo> selectUserPageList(PageVo pageVo) {
+		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
+		SqlSession session = factory.openSession();
+	
+		List<UserVo> userList = session.selectList("user.selectUserPageList", pageVo);
+		
+		// 명시적으로 처리해 주기 
+		//session.rollback();
+		//session.commit();
+		
+		// 세션을 사용했으니깐 닫아준다
+		session.close();
+		
+		// 매개변수가 없어서 값을 주지 않아도 된다 
+		// 여러건을 조회할때에는 selectList를 사용한다
+		// selectOne : 데이터가 한건 일 떄 
+		// 메소드 인자 : 문자열 = 네임스페이스(일반적으로 모듈명을 이용) .쿼리아이디 
+		return userList;
+		
+		
+	}
+
+	/**  * Method   : getUserCnt
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @return
+	  * Method 설명 :  사용자 전체 건수 조회 
+	*/
+	@Override
+	public int getUserCnt() {
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session = factory.openSession();
 		
-		// 매개변수가 없어서 값을 주지 않아도 된다 
-		// 여러건을 조회할때에는 selectList를 사용한다
-		// selectOne : 데이터가 한건 일 떄 
-		// 메소드 인자 : 문자열 = 네임스페이스(일반적으로 모듈명을 이용) .쿼리아이디 
-		return session.selectList("user.selectUserPageList", userVo);
+		int totalUserCnt = session.selectOne("user.getUserCnt");
+		session.close();
+		
+		return totalUserCnt;
 	}
 
-	
-	
-	
 
 }

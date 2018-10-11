@@ -21,10 +21,18 @@ public class UserVo {
 	private String tel;
 	private String profile;
 	
+	// 페이징 처리
+	private int rnum;
+
 	
-	
-	
-	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
 	public String getPass() {
 		return pass;
 	}

@@ -11,7 +11,7 @@
   <select id="selectUser" parameterType="String" resultType="userVo">
      SELECT *
 	   FROM JSPUSER
-      WHERE USERID = #{USERID}
+      WHERE USERID = #{userId}
   </select>
   
   <select id="selectUserByVo" parameterType="userVo" resultType="userVo">
@@ -20,15 +20,20 @@
       WHERE USERID = #{userId}
   </select>
   
-  <select id="selectUserPageList" parameterType="int" resultType="userVo">
-	SELECT 
-	        *
-	  FROM
-	        (SELECT ROWNUM AS RNUM , JSPUSER.* 
-	  FROM  JSPUSER 
-  ORDER BY  USERID)
-	 WHERE  RNUM BETWEEN #{PAGE}*#{PAGESIZE}-#{PAGESIZE}-1 AND #{PAGE}*#{PAGESIZE}
+  <select id="selectUserPageList" parameterType="pageVo" resultType="userVo">
+	SELECT *
+	FROM
+	(SELECT ROWNUM AS rnum , A.* 
+	    FROM 
+	        ( SELECT JSPUSER.*
+	            FROM JSPUSER
+	        ORDER BY USERID)A)
+	WHERE  rnum BETWEEN #{page}*#{pageSize}-(#{pageSize}-1) AND #{page}*#{pageSize}
   </select>
+  
+    <select id="getUserCnt"  resultType="int">
+	select count(*) from jspuser
+  	</select>
   
   
 </mapper>

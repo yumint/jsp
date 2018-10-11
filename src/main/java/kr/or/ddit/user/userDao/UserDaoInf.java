@@ -1,4 +1,4 @@
-package kr.or.ddit.user.Dao;
+package kr.or.ddit.user.userDao;
 
 import java.util.List;
 
@@ -22,7 +22,16 @@ public interface UserDaoInf {
 	
 	
 	// 페이징 처리
-	public List<PageVo> selectUserPageList(UserVo userVo);
+	public List<UserVo> selectUserPageList(PageVo pageVo);
+	
+	
+	/**  * Method   : getUserCnt
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @return
+	  * Method 설명 :  사용자 전체 건수 조회 
+	*/
+	int getUserCnt();
 	
 
 }

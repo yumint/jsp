@@ -19,10 +19,36 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>userAllList.jsp</title>
+<title>userAllLIst.jsp</title>
 	<%@ include file="/common/basicLib.jsp" %> 
+	
+<style type="text/css">
+	.userClick{
+		cursor : pointer;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 개발자 도구에 나오는지 확인하는 방법
+		console.log("document.ready");
+		
+		// tr에 select(class="userClick")
+		$(".userClick").on("click",function(){
+			console.log("userClick");
+			var userId = $(this).children()[1].innerText;
+			
+			$("#userId").val(userId);
+			
+			//  .summit();
+			$("#frm").submit();
+		});
+		
+	});
+</script>
 </head>
-
+<form id="frm" action="/userDetail" method="get">
+	<input type="hidden" id="userId" name="userId"/>
+</form>
 <body>
    <%-- @은 지시자 --%>
    <%-- header --%>
@@ -39,7 +65,7 @@
 				<div class="col-sm-8 blog-main">
 					<h2 class="sub-header">사용자</h2>
 					<div class="table-responsive">
-						<table class="table table-striped">
+						<table class="table table-striped table-hover" >
 							<tr>
 								<th>번호</th>
 								<th>사용자 아이디</th>
@@ -49,15 +75,15 @@
 							
 							<!-- userList loop 이용하여 출력  -->
 							<%
-							 List<UserVo> list = (List)request.getAttribute("userAllList");
+							 List<UserVo> list = (List)request.getAttribute("pageList");
 							 SimpleDateFormat date = new SimpleDateFormat("yyyy년-MM월-dd일");
 							%>
 							<%for(int i = 0; i < list.size(); i++){
 								UserVo user = list.get(i);
 								
 							%>
-							<tr>
-								<td><%= i+1%></td>
+							<tr class="userClick">
+								<td><%= user.getRnum()%></td>
 								<td><%= user.getUserId() %></td>
 								<td><%= user.getName() %></td>
 								<td><%= date.format(user.getBirth()) %></td>
@@ -68,16 +94,30 @@
 			
 					<a class="btn btn-default pull-right">사용자 등록</a>
 					
-				
+			
 				
 					<div class="text-center">
 						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
+						
+							   <li>
+							      <a href="/userPageList?page=1&pageSize=10" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+						<% int pageCnt = (Integer)request.getAttribute("pageCnt"); 
+							for(int p = 1; p <= pageCnt; p++){
+						%>
+							<li><a href="/userPageList?page=<%=p %>&pageSize=10"><%=p %></a></li>
+							
+						<%} %>
+						    <li>
+						      <a href="/userPageList?page=<%=pageCnt %>&pageSize=10" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </li>
+						    
 						</ul>
+						
 					</div>
 				</div>
 			</div>
