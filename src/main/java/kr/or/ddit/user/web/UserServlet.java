@@ -41,8 +41,12 @@ public class UserServlet extends HttpServlet {
 		else if (uri.equals("/userPageList"))
 			userPageList(request , response);
 		
-		// 사용자 상세 조회 화면 만들기 
+		// 사용자 상세 조회 화면
 		else if(uri.equals("/userDetail"))
+			userDetail(request , response);
+		
+		// 사용자 정보 수정하는 화면 
+		else if(uri.equals("/userFormUpdate"))
 			userDetail(request , response);
 		
 	}
@@ -146,7 +150,10 @@ public class UserServlet extends HttpServlet {
 		// 2. sendRedirect : 서버에 데이터가 변경되었을떄 사용 (요청이 2번간다) 
 		RequestDispatcher rd = request.getRequestDispatcher("/user/userAllList.jsp");
 		rd.forward(request, response);
+		
 	}
+	
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

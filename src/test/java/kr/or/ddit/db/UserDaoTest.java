@@ -2,6 +2,8 @@ package kr.or.ddit.db;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +19,12 @@ public class UserDaoTest {
 	
 	private UserDaoInf userDao;
 	
+	private final String TETUSERID = "test";
+	
 	@Before
 	public void setup(){
 		userDao = new UserDao();
+		userDao.deleteUser(TETUSERID);
 	}
 
 	// 테스트 메소드 명명규칙(회사마다 다름) 
@@ -100,7 +105,6 @@ public class UserDaoTest {
 	@Test
 	public void selectUserPageList(){
 		/***Given : 주어진 상황 ***/
-		UserDaoInf userDao = new UserDao();
 		
 		PageVo userPage = new PageVo();
 		userPage.setPage(2);
@@ -123,7 +127,8 @@ public class UserDaoTest {
 	public void getUserCntTest(){
 		/***Given : 주어진 상황 ***/
 		
-		
+
+			
 		/***When : 어떤 동작 수행(메소드 호출)***/
 		
 		int totalUserCnt = userDao.getUserCnt();
@@ -131,9 +136,89 @@ public class UserDaoTest {
 		/***Then : 결과가 어떠해야하는지 정의 ***/
 		
 		assertEquals(105, totalUserCnt);
+	
+	}
+
+	// 테스트 이름은 메서드뒤에 test입력하기 
+	@Test
+	public void inserUserTest(){
+		/***Given : 주어진 상황 ***/
+		// userVo 준비 
+
+		UserVo userVo = new UserVo();
+			
+		userVo.setUserId("test");
+		userVo.setName("테스트");
+		userVo.setPass("pass");
+		userVo.setAddr1("세종시");
+		userVo.setAddr2("아름동");
+		
+		GregorianCalendar gr = new GregorianCalendar();
+		userVo.setBirth(new Date(gr.getTimeInMillis()));
+		
+		userVo.setZipcd("39419");
+		userVo.setEmail("laswl4090@gmail.com");
+		userVo.setTel("0448674090");
 		
 
+		/***When : 어떤 동작 수행(메소드 호출)***/
+		// userDao.insertUser()
 		
+		int result = userDao.insertUser(userVo);
+
+		/***Then : 결과가 어떠해야하는지 정의 ***/
+		// 입력건수 비교 
+		
+		assertEquals(1,result);
+
+		
+	}
+
+	// 삭제하는 부분 만들기 
+/*	@Test
+	public void deleteUserTest(){
+		
+		*//***Given : 주어진 상황 ***//*
+		// userVo 준비 
+
+		String userId = "test";
+		
+
+		*//***When : 어떤 동작 수행(메소드 호출)***//*
+		// userDao.insertUser()
+		
+		int result = userDao.deleteUser(userId);
+
+		*//***Then : 결과가 어떠해야하는지 정의 ***//*
+		// 입력건수 비교 
+		
+		assertEquals(1,result);
+		
+	}*/
+	
+	@Test
+	public void updateTest(){
+		/***Given : 주어진 상황 ***/
+
+		UserVo userVo = new UserVo();
+			
+		userVo.setUserId("test2");
+		userVo.setName("테스트");
+		userVo.setPass("pass");
+		userVo.setAddr1("세종시");
+		userVo.setAddr2("아름동");
+		
+		GregorianCalendar gr = new GregorianCalendar();
+		userVo.setBirth(new Date(gr.getTimeInMillis()));
+		
+		userVo.setZipcd("39419");
+		userVo.setEmail("laswl4090@gmail.com");
+		userVo.setTel("0448674090");
+		
+		/***When : 어떤 동작 수행(메소드 호출)***/
+		int result = userDao.updateUser(userVo);
+		/***Then : 결과가 어떠해야하는지 정의 ***/
+		assertEquals(1,result);
 	}
 	
 	

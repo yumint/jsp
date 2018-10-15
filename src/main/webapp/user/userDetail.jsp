@@ -21,6 +21,24 @@
 
 <title>userDetail.jsp</title>
 <%@ include file="/common/basicLib.jsp"%>
+<script type="text/javascript">
+		$(document).ready(function(){
+			var click = "click";
+			$("#update").on(click, function(){
+				var userId = $("#userId2").text();
+				
+				$("#userId").val(userId);
+				$("#frm").submit();
+			});
+		});
+	
+</script>
+
+
+<% SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+%>
+
+
 </head>
 
 <body>
@@ -36,10 +54,12 @@
 
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<div class="row">
+				
+					<% UserVo user = (UserVo)(request.getAttribute("userInfo")); %>
 
-					<form class="form-horizontal" role="form">
+			
+					<form id="frm" class="form-horizontal" role="form" method="get" action="/userFormUpdate?userId2=<%=user.getUserId()%>" >
 					
-						<% UserVo user = (UserVo)(request.getAttribute("userInfo")); %>
 						
 						<div class="form-group">
 							<label for="userNm" class="col-sm-2 control-label">사용자 사진</label>
@@ -59,14 +79,15 @@
 							<label for="userNm" class="col-sm-2 control-label">사용자
 								아이디</label>
 							<div class="col-sm-10">
-								<label class="control-label"><%=user.getUserId()%></label>
+								<input type="hidden" id="userId" name="userId"> 
+								<label id="userId2"  class="control-label"><%=user.getUserId()%></label>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="userNm" class="col-sm-2 control-label">이름</label>
 							<div class="col-sm-10">
-								<label class="control-label"><%=user.getName() %></label>
+								<label  class="control-label"><%=user.getName() %></label>
 							</div>
 						</div>
 						<div class="form-group">
@@ -92,7 +113,7 @@
 						<div class="form-group">
 							<label for="pass" class="col-sm-2 control-label">생년월일</label>
 							<div class="col-sm-10">
-								<label class="control-label"><%=user.getBirth() %></label>
+								<label class="control-label"><%=sdf.format(user.getBirth())%></label>
 							</div>
 						</div>
 						
@@ -108,6 +129,10 @@
 							<div class="col-sm-10">
 								<label class="control-label"><%=user.getTel() %></label>
 							</div>
+						</div>
+						
+						<div class="form-group">
+						  <button id="update" >사용자 수정</button>
 						</div>
 
 

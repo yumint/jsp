@@ -9,6 +9,7 @@ import kr.or.ddit.user.model.UserVo;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+
 public class UserDao implements UserDaoInf {
 	
 	public UserDao () {}
@@ -114,6 +115,75 @@ public class UserDao implements UserDaoInf {
 		session.close();
 		
 		return totalUserCnt;
+	}
+	
+	
+	/**  * Method   : inserUser
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param : userVo
+	  * @return : 리턴은 없다
+	  * Method 설명 :  사용자 등록
+	*/
+	@Override
+	public int insertUser(UserVo userVo){
+		
+		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
+		SqlSession session = factory.openSession();
+		
+		int insertCnt = session.insert("user.insertUser", userVo);
+		
+		// commit을 해야 데이터가 확정된다 ( 꼭 해주기 !)
+		session.commit();
+		session.close();
+		
+		return insertCnt;
+	}
+
+
+	/**  * Method   : deleteUser
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param userID
+	  * @return
+	  * Method 설명 :  사용자 삭제 
+	*/
+	@Override
+	public int deleteUser(String userId) {
+		
+		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
+		SqlSession session = factory.openSession();
+		
+		int deleteCnt = session.delete("user.deleteUser", userId);
+		
+		// commit을 해야 데이터가 확정된다 ( 꼭 해주기 !)
+		session.commit();
+		session.close();
+		
+		return deleteCnt;
+	}
+
+
+	/**  * Method   : updateUser
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param userId
+	  * @return
+	  * Method 설명 :  사용자 정보 수정
+	*/
+	@Override
+	public int updateUser(UserVo userVo) {
+		
+		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
+		SqlSession session = factory.openSession();
+		
+		int updateCnt = session.update("user.userUpdate", userVo);
+		
+		// commit을 해야 데이터가 확정된다 ( 꼭 해주기 !)
+		session.commit();
+		session.close();
+		
+		return updateCnt;
 	}
 
 

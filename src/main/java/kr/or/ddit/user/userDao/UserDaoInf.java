@@ -33,5 +33,35 @@ public interface UserDaoInf {
 	*/
 	int getUserCnt();
 	
+	/**  * Method   : inserUser
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param : userVo
+	  * @return : 리턴은 없다
+	  * Method 설명 :  사용자 등록
+	*/
+	int insertUser(UserVo userVo);
+	
+	
+	/**  * Method   : deleteUser
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param userID
+	  * @return
+	  * Method 설명 :  사용자 삭제 
+	*/
+	int deleteUser(String userId);
+	
+	
+	
+	/**  * Method   : updateUser
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param userId
+	  * @return
+	  * Method 설명 :  사용자 정보 수정
+	*/
+	int updateUser(UserVo userVo);
+	
 
 }

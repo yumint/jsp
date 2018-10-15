@@ -3,6 +3,8 @@ package kr.or.ddit.userService;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +25,8 @@ import org.junit.Test;
 
 public class UserServiceTest {
 	
+	
+	
 	// junit 실행주기 
 	// @BeforeClass 이 적용된 메소드 실행 (최초1회) 
 	// @Before 어노테이션이 적용된 메소드 실행 (테스트 메소드 실행전 실행) , 단 static 메소드로 선언 
@@ -37,6 +41,7 @@ public class UserServiceTest {
 	//afterClass로 실행
 	
 	private UserService userService;
+	private final String TETUSERID = "test";
 	
 	@BeforeClass
 	public static void beforeClass(){
@@ -52,6 +57,7 @@ public class UserServiceTest {
 	public void beore(){
 		System.out.println("before");
 		userService = new UserService();
+		userService.deleteUser(TETUSERID);
 	}
 	
 	@After
@@ -134,5 +140,42 @@ public class UserServiceTest {
 		assertEquals(10 ,userList.size());
 		assertEquals(11 ,pageCnt);
 	}
+	
+	// 테스트 이름은 메서드뒤에 test입력하기 
+	@Test
+	public void inserUserTest(){
+		/***Given : 주어진 상황 ***/
+		// userVo 준비 
+
+		UserVo userVo = new UserVo();
+			
+		userVo.setUserId("test");
+		userVo.setName("테스트");
+		userVo.setPass("pass");
+		userVo.setAddr1("세종시");
+		userVo.setAddr2("아름동");
+		
+		GregorianCalendar gr = new GregorianCalendar();
+		userVo.setBirth(new Date(gr.getTimeInMillis()));
+		
+		userVo.setZipcd("39419");
+		userVo.setEmail("laswl4090@gmail.com");
+		userVo.setTel("0448674090");
+		
+
+		/***When : 어떤 동작 수행(메소드 호출)***/
+		// userDao.insertUser()
+		
+		int result = userService.insertUser(userVo);
+
+		/***Then : 결과가 어떠해야하는지 정의 ***/
+		// 입력건수 비교 
+		
+		assertEquals(1,result);
+
+		
+	}
+	
+	
 
 }
