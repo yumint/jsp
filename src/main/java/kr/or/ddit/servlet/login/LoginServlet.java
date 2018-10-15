@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,36 @@ public class LoginServlet extends HttpServlet {
 		//1 : input에 있는 name을 괄호에 넣어준다
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
+		// getParameter는 리턴값이 무조건 String 이다
+		String rememberMe = request.getParameter("remember-me");
+		
+		// remember-me 파라미터 받아서 sysout으로 출력 
+		System.out.println(rememberMe);
+		
+		// rememberMe == null : 아이디 기억 사용안함 
+		if(rememberMe == null){
+			Cookie[] cookies = request.getCookies();
+			for(Cookie cookie : cookies){
+				
+				// cookie 이름이 remember , userId 일 경우 maxage를 -1로 설정하여 쿠키를 유효하지 않게 설정
+				if(cookie.getName().equals("remember")||cookie.getName().equals("userId")){
+					
+					//-1 : 브라우저 재시작시 쿠키 삭제 반영 
+					//0: 바로 삭제 
+					cookie.setMaxAge(0);
+					resp.addCookie(cookie);
+				}
+	
+			}
+		}
+		// remeberMe != null : 아이디 기억 사용 	
+		else{
+			// response 객체에 쿠키를 저장
+			Cookie cookie = new Cookie("remember", "Y");
+			Cookie userIdcookie = new Cookie("userId", userId);	// userId도 저장해야 하기 때문에 저장해 놓음 
+			resp.addCookie(cookie); // 위에서 선언한것 입력 
+			resp.addCookie(userIdcookie); 
+		}
 		
 		//2 --> db대신 상수로 대체 --> db로 대체
 			// 1.  사용자가 전송한 userId 파라미터로 사용자 정보조회 

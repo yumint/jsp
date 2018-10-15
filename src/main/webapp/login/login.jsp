@@ -84,21 +84,46 @@
 
     <title>Signin Template for Bootstrap</title>
 
+	<%@include file="/common/basicLib.jsp" %>
+	
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	console.log("test");
+    	// remember 쿠키값이 Y이면 
+    	var cookieValue = getCookie("remember");
+ 
+    	// remember-me 체크박스 체크 
+    	if(cookieValue == "Y"){
+    		$("#checkbox").attr("checked", true );
+	    	// userId input value 를 userId 쿠키 값으로 설정 
+	    	var userId = getCookie("userId");
+	    	
+	    	$("#userId").attr("value" , userId);
+    	}
+    	
+    	
+    });
+    
+    function getCookie(cookieName){
+       //cookieString --> document.cookie
+       var cookies = document.cookie.split("; ");
+       var getCookieValue = "";
+       for(var i=0;i<cookies.length;i++){
+          var str = cookies[i];
+          if(str.startsWith(cookieName +"=")){
+             CookieValue = str.substring((cookieName + "=").length);
+          }
+       }
 
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+       return CookieValue;
+    }
+    
+    // getCookie("userId");
+    // getCookie("remember");
+    
+    </script>
+    
   </head>
 
   <body>
@@ -108,16 +133,19 @@
       <form class="form-signin" action="/dditLogin" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">userId</label>
-        <input type="text" name="userId" class="form-control" placeholder="userId" required autofocus value="brown">
+        <input id="userId" type="text" name="userId" class="form-control" placeholder="userId" required autofocus value="">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" required value="brownpass">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input type="password" name="password" class="form-control" placeholder="Password" required value="">
+     	<div class="checkbox">
+     		<label>
+     			<input id="checkbox" type="checkbox" value="Remember me" name="remember-me"/>
+     			Remember me
+     		</label>
+     		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+     	</div>
       </form>
 
     </div> <!-- /container -->
 
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
