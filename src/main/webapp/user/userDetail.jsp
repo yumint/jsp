@@ -34,6 +34,13 @@
 	
 </script>
 
+<style type="text/css">
+	#updateForm {
+    	padding-left: 200px;
+	}
+	
+</style>
+
 
 <% SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 %>
@@ -58,7 +65,7 @@
 					<% UserVo user = (UserVo)(request.getAttribute("userInfo")); %>
 
 			
-					<form id="frm" class="form-horizontal" role="form" method="get" action="/userFormUpdate?userId2=<%=user.getUserId()%>" >
+					<form id="frm" class="form-horizontal" role="form" method="get" action="/userFormUpdate?userId=<%=user.getUserId()%>" >
 					
 						
 						<div class="form-group">
@@ -131,10 +138,9 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
+						<div id="updateForm" class="form-group">
 						  <button id="update" >사용자 수정</button>
 						</div>
-
 
 					</form>
 

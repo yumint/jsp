@@ -132,16 +132,6 @@ public class UserVo {
 		this.alias = alias;
 	}
 	
-	@Override
-	public String toString() {
-		return "UserVo [userId=" + userId + ", name=" + name + ", alias="
-				+ alias + ", pass=" + pass + ", addr1=" + addr1 + ", addr2="
-				+ addr2 + ", zipcd=" + zipcd + ", birth=" + birth + ", email="
-				+ email + ", tel=" + tel + ", profile=" + profile + "]";
-	}
-
-
-
 	
 	
 	

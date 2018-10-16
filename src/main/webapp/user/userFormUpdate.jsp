@@ -69,8 +69,34 @@
 			
 		});
 		
+		function readURL(input) {
+			 
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		 
+		        reader.onload = function (e) {
+		            $('#image_section').attr('src', e.target.result);
+		        }
+		 
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		 
+		$("#imgInput").change(function(){
+		    readURL(this);
+		});
 	});
+	
+	
 </script>
+
+<style type="text/css">
+	#fileForm {
+    	padding-left: 200px;
+    	padding-top: 15px;
+	}
+	
+</style>
 
 </head>
 
@@ -91,7 +117,7 @@
 					<form action="/userFormUpdate" method="post" class="form-horizontal" role="form" 
 							enctype="multipart/form-data">
 					
-						<% UserVo user = (UserVo)(request.getAttribute("userInfo")); %>
+						<% UserVo user = (UserVo)(request.getAttribute("userVo")); %>
 						
 	
 						
@@ -103,18 +129,15 @@
 									profilePath =
 									profilePath == null ? "/profile/noimage.png" : profilePath;
 								%>
-									<img src="<%= profilePath%>">
+									<img id="image_section" src="<%= profilePath%>" alt="your image" />
 							</div>
-							<div class="col-sm-10">
-			
-									<input type="file" name="profile">
-						
+							<div id="fileForm" class="col-sm-10">
+									<input type="file" name="profile"   id="imgInput" />
 							</div>
 						</div>
-
+						
 						<div class="form-group">
-							<label for="userNm" class="col-sm-2 control-label">사용자
-								아이디</label>
+							<label for="userNm" class="col-sm-2 control-label">사용자 아이디</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="userId" name="userId"
 										placeholder="아이디"  value="<%=user.getUserId()%>" readonly="readonly">
@@ -190,7 +213,7 @@
 						
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-default">수정하기</button>
+								<button id="update" type="submit" class="btn btn-default">수정하기</button>
 							</div>
 						</div>
 

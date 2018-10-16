@@ -50,7 +50,7 @@
   	</delete>
   	
   	<!--  사용자 정보 수정하는 쿼리 (만들것)-->
-  	<update id="userUpdate" parameterType="userVo">  	
+  	<update id="updateUser" parameterType="userVo">  	
   	UPDATE jspuser
 	   SET name = #{name} 
 	     , pass = #{pass}

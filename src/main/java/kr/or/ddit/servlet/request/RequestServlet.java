@@ -50,7 +50,7 @@ public class RequestServlet extends HttpServlet {
 		UserVo userVo = new UserVo();
 		userVo.setUserId(userId);
 		userVo.setName("브라운");
-		userVo.setAlias("곰");
+//		userVo.setAlias("곰");
 		userVo.setBirth(new Date());
 		
 		return userVo;

@@ -177,7 +177,7 @@ public class UserDao implements UserDaoInf {
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session = factory.openSession();
 		
-		int updateCnt = session.update("user.userUpdate", userVo);
+		int updateCnt = session.update("user.updateUser", userVo);
 		
 		// commit을 해야 데이터가 확정된다 ( 꼭 해주기 !)
 		session.commit();
