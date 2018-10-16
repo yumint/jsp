@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="kr.or.ddit.user.model.PageVo"%>
 <%@page import="kr.or.ddit.user.userService.UserService"%>
@@ -87,6 +88,22 @@
 	<h2>core foreach index loop</h2>
 	<c:forEach begin="0" end="10" var="i" step="3">
 		${i }&nbsp;&nbsp;&nbsp;
+	</c:forEach>
+	
+	<h2>core foreach : map</h2>
+	<%
+		Map<String , String> strMap = new HashMap<String , String>();
+	
+		strMap.put("ranger1" , "brown");
+		strMap.put("ranger2" , "sally");
+		strMap.put("ranger3" , "cony");
+		strMap.put("ranger4" , "james");
+		
+		request.setAttribute("strMap", strMap);
+	%>
+	
+	<c:forEach items="${strMap }" var="map">
+			${map.key }/${map.value }<br>
 	</c:forEach>
 	
 
