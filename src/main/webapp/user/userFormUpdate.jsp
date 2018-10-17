@@ -8,6 +8,9 @@
 <%@page import="kr.or.ddit.user.model.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -123,16 +126,28 @@
 						
 						<div class="form-group">
 							<label for="userNm" class="col-sm-2 control-label">사용자 사진</label>
-							<div class="col-sm-10">
-								<%
-									String profilePath = user.getProfile();
-									profilePath =
-									profilePath == null ? "/profile/noimage.png" : profilePath;
-								%>
-									<img id="image_section" src="<%= profilePath%>" alt="your image" />
-							</div>
+<!-- 							<div class="col-sm-10"> -->
+<%-- 								<% --%>
+<%--// 									String profilePath = user.getProfile();--%>
+<%--// 									profilePath = --%>
+<%--// 									profilePath == null ? "/profile/noimage.png" : profilePath;--%>
+<%-- 								%> --%>
+<%-- 									<img id="image_section" src="<%= profilePath%>" alt="your image" /> --%>
+<!-- 							</div> -->
+							
+								<c:choose>
+    								<c:when test="${userVo.profile == null}"> 
+    									<c:set var="profile" value="profile/noimage.png"></c:set>
+    								</c:when>
+    								<c:otherwise>
+    									<c:set var="profile" value="${userVo.profile }"></c:set>
+    								</c:otherwise>
+    							</c:choose>
+								
+									<img src="${profile }" id="image_section" alt="your image">
+							
 							<div id="fileForm" class="col-sm-10">
-									<input type="file" name="profile"   id="imgInput" />
+									<input type="file" name="profile" id="imgInput" />
 							</div>
 						</div>
 						
@@ -140,7 +155,7 @@
 							<label for="userNm" class="col-sm-2 control-label">사용자 아이디</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="userId" name="userId"
-										placeholder="아이디"  value="<%=user.getUserId()%>" readonly="readonly">
+										placeholder="아이디"  value="${userVo.userId }" readonly="readonly">
 							</div>
 						</div>
 						
@@ -148,7 +163,7 @@
 							<label for="userNm" class="col-sm-2 control-label">비밀번호</label>
 							<div class="col-sm-10">
 								<input type="password" class="form-control" id="pass" name="pass"
-										placeholder="비밀번호" value="<%=user.getPass()%>">
+										placeholder="비밀번호" value="${userVo.pass }">
 							</div>
 						</div>
 
@@ -156,14 +171,14 @@
 							<label for="userNm" class="col-sm-2 control-label">이름</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="name" name="name"
-										placeholder="이름" value="<%=user.getName() %>">
+										placeholder="이름" value="${userVo.name }">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="userNm" class="col-sm-2 control-label">주소</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="addr1" name="addr1"
-										placeholder="주소" value="<%=user.getAddr1() %>"> 
+										placeholder="주소" value="${userVo.addr1 }"> 
 								<!-- 주소 검색 버튼  -->
 								<button id="addrSearchBtn" type="button" class="btn btn-default">주소검색</button>
 							</div>
@@ -172,7 +187,7 @@
 							<label for="pass" class="col-sm-2 control-label">상세주소</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="addr2" name="addr2"
-										placeholder="상세주소" value="<%=user.getAddr2() %>">
+										placeholder="상세주소" value="${userVo.addr2 }">
 							</div>
 						</div>
 						
@@ -180,7 +195,7 @@
 							<label for="pass" class="col-sm-2 control-label">우편번호</label>
 							<div class="col-sm-10">
 								<input  type="text" class="form-control" id="zipcd" name="zipcd"
-										placeholder="우편번호" value="<%=user.getZipcd() %>">
+										placeholder="우편번호" value="${userVo.zipcd }">
 							</div>
 						</div>
 						
@@ -191,7 +206,9 @@
 							<label for="pass" class="col-sm-2 control-label">생년월일</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="birth" name="birth"
-										placeholder="생년월일" value="<%=sdf.format(user.getBirth()) %>">
+										placeholder="생년월일" 
+										value="<fmt:formatDate value='${userVo.birth }' pattern='yyyy-MM-dd'/>">
+			
 							</div>
 						</div>
 						
@@ -199,7 +216,7 @@
 							<label for="pass" class="col-sm-2 control-label">이메일</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="email" name="email"
-										placeholder="이메일" value="<%=user.getEmail() %>">
+										placeholder="이메일" value="${userVo.email }">
 							</div>
 						</div>
 						
@@ -207,7 +224,7 @@
 							<label for="pass" class="col-sm-2 control-label">연락처</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="tel" name="tel"
-										placeholder="연락처" value="<%=user.getTel() %>">
+										placeholder="연락처" value="${userVo.tel }">
 							</div>
 						</div>
 						

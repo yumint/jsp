@@ -36,15 +36,15 @@
 	$(document).ready(function(){
 		
 		// 개발과정 사용한 기본 값 설정 
-		$("#userID").val();
-		$("#pass").val("pass1234");
-		$("#name").val("testUserId");
-		$("#addr1").val("대전 중구 중앙로 76");
-		$("#addr2").val("영민빌딩 2층 대덕인재개발원");
-		$("#zipcd").val("34940");
-		$("#birth").val("2018-08-08");
-		$("#email").val("newUser@gmail.com");
-		$("#tel").val("0422228202");
+// 		$("#userID").val();
+// 		$("#pass").val("pass1234");
+// 		$("#name").val("testUserId");
+// 		$("#addr1").val("대전 중구 중앙로 76");
+// 		$("#addr2").val("영민빌딩 2층 대덕인재개발원");
+// 		$("#zipcd").val("34940");
+// 		$("#birth").val("2018-08-08");
+// 		$("#email").val("newUser@gmail.com");
+// 		$("#tel").val("0422228202");
 		            
 		
 		// 생일 input datepicker적용

@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.prod.model.ProdVo"%>
 <%@page import="java.util.Set"%>
 <%@page import="kr.or.ddit.user.model.PageVo"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -22,27 +23,23 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>userAllLIst.jsp</title>
+<title>prodList.jsp</title>
 	<%@ include file="/common/basicLib.jsp" %> 
 	
 <style type="text/css">
 	.userClick{
 		cursor : pointer;
-		
-		
+
 	}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// 개발자 도구에 나오는지 확인하는 방법
-		console.log("document.ready");
 		
 		// tr에 select(class="userClick")
-		$(".userClick").on("click",function(){
-			console.log("userClick");
-			var userId = $(this).children()[1].innerText;
+		$(".prodClick").on("click",function(){
+			var prodId = $(this).children()[1].innerText;
 			
-			$("#userId").val(userId);
+			$("#prodId").val(prodId);
 			
 			//  .summit();
 			$("#frm").submit();
@@ -51,8 +48,8 @@
 	});
 </script>
 </head>
-<form id="frm" action="/userDetail" method="get">
-	<input type="hidden" id="userId" name="userId"/>
+<form id="frm" action="pordDetail" method="get">
+	<input type="hidden" id="prodId" name="prodId"/>
 </form>
 <body>
    <%-- @은 지시자 --%>
@@ -68,65 +65,34 @@
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: white;">
             <div class="row" style="background-color: white;">
 				<div class="col-sm-8 blog-main">
-					<h2 class="sub-header">사용자</h2>
+					<h2 class="sub-header">제품</h2>
 					<div class="table-responsive">
 						<table class="table table-striped table-hover" >
 							<tr>
-								<th>번호</th>
-								<th>사용자 아이디</th>
-								<th>사용자 이름</th>
-								<th>사용자 생일</th>
+								<th>제품아이디</th>
+								<th>제품명</th>
+								<th>제품그룹명</th>
+								<th>제품등록일</th>
 							</tr>
-							
-<%--             <% List<UserVo> userList = (List)request.getAttribute("pageList"); --%>
-<!-- //                SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일"); -->
-<!-- //                for(int i=0;i<userList.size();i++){  -->
-<%--                   UserVo userVo2 = userList.get(i); %> --%>
-<!--             <tr class="userClick"> -->
-<%--                <td><%=userVo2.getRnum() %></td> --%>
-<%--                <td><%=userVo2.getUserId() %></td> --%>
-<%--                <td><%=userVo2.getName() %></td> --%>
-<%--                <td><%=sdf.format(userVo2.getBirth()) %></td> --%>
-<!--             </tr> -->
-<%--             <%} %> --%>
 
 							<!-- userList loop 이용하여 출력  -->
-							<c:forEach items="${pageList }" var="vo"  >
-								<tr class="userClick">
-									<td>${vo.rnum}</td>
-									<td>${vo.userId}</td>
-									<td>${vo.name}</td>
-									<td><fmt:formatDate value="${vo.birth }" pattern="yyyy-MM-dd"/>
+							<c:forEach items="${prodPageList }" var="vo"  >
+								<tr class="prodClick">
+									<td>${vo.prod_id}</td>
+									<td>${vo.prod_name}</td>
+									<td>${vo.lprod_nm}</td>
+									<td><fmt:formatDate value="${vo.prod_insdate}" pattern="yyyy-MM-dd"/>
 								</tr>
 							</c:forEach>
 							
 						</table>
 					</div>
-			
-					<a class="btn btn-default pull-right" href="/userForm">사용자 등록</a>
-					
+								
 					<div class="text-center">
 						<ul class="pagination">
-						
-<!-- 							   <li> -->
-<!-- 							      <a href="/userPageList?page=1&pageSize=10" aria-label="Previous"> -->
-<!-- 							        <span aria-hidden="true">&laquo;</span> -->
-<!-- 							      </a> -->
-<!-- 							    </li> -->
-<%-- 						<% int pageCnt = (Integer)request.getAttribute("pageCnt");  --%>
-<!-- //					for(int p = 1; p <= pageCnt; p++){ -->
-<%-- 						%> --%>
-<%-- 							<li><a href="/userPageList?page=<%=p %>&pageSize=10"><%=p %></a></li> --%>
-							
-<%-- 						<%} %> --%>
-<!-- 						    <li> -->
-<%-- 						      <a href="/userPageList?page=<%=pageCnt %>&pageSize=10" aria-label="Next"> --%>
-<!-- 						        <span aria-hidden="true">&raquo;</span> -->
-<!-- 						      </a> -->
-<!-- 						    </li> -->
 
 							   <li>
-							      <a href="/userPageList?page=1&pageSize=10" aria-label="Previous">
+							      <a href="/prodList?page=1&pageSize=10" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
@@ -135,13 +101,13 @@
 						
 							<c:forEach begin="1" end="${pageCnt }" var="page" >
 								<tr>
-									<li><a href="/userPageList?page=${page}&pageSize=10">${page}</a></li>
+									<li><a href="/prodList?page=${page }&pageSize=10">${page }</a></li>
 								</tr>
 							</c:forEach>
 						
 						
 						    <li>
-						      <a href="/userPageList?page=${pageCnt}&pageSize=10" aria-label="Next">
+						      <a href="/prodList?page=${pageCnt }&pageSize=10" aria-label="Next">
 						        <span aria-hidden="true">&raquo;</span>
 						      </a>
 						    </li>

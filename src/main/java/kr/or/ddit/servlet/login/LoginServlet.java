@@ -102,7 +102,7 @@ public class LoginServlet extends HttpServlet {
 			
 			
 			// 방법2.
-			request.getSession().setAttribute("userVo", user );
+			request.getSession().setAttribute("S_USER", user );
 			
 			// 2. main.jsp 화면에 boby 영역에 이름[별명]님 안녕하세요  만들기
 		

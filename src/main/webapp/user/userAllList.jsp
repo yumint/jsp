@@ -7,7 +7,10 @@
 <%@page import="kr.or.ddit.user.model.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-
+   
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,30 +49,20 @@
 								<th>사용자 이름</th>
 								<th>사용자 생일</th>
 							</tr>
-							
 							<!-- userList loop 이용하여 출력  -->
-							<%
-							 List<UserVo> list = (List)request.getAttribute("userAllList");
-							 SimpleDateFormat date = new SimpleDateFormat("yyyy년-MM월-dd일");
-							%>
-							<%for(int i = 0; i < list.size(); i++){
-								UserVo user = list.get(i);
-								
-							%>
-							<tr>
-								<td><%= i+1%></td>
-								<td><%= user.getUserId() %></td>
-								<td><%= user.getName() %></td>
-								<td><%= date.format(user.getBirth()) %></td>
-							</tr>
-							<%} %>
+							<c:forEach items="${userAllList }" var="vo" varStatus="status" >
+								<tr>
+									<td>${status.index + 1 }</td>
+									<td>${vo.userId}</td>
+									<td>${vo.name}</td>
+									<td><fmt:formatDate value="${vo.birth }" pattern="yyyy-MM-dd"/>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 			
 					<a class="btn btn-default pull-right">사용자 등록</a>
-					
-				
-				
+
 					<div class="text-center">
 						<ul class="pagination">
 							<li><a href="#">1</a></li>
