@@ -2,6 +2,8 @@ package kr.or.ddit.user.model;
 
 public class PageVo {
 	
+
+	
 	private int page;
 	private int pageSize;
 	

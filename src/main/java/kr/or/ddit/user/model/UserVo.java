@@ -131,6 +131,18 @@ public class UserVo {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
+
+
+	/**  * Method   : authPass
+	  * 작성자 : PC 
+	  * 변경이력 :  
+	  * @param encryptPass
+	  * @return
+	  * Method 설명 : 비밀번호 검증 
+	*/
+	public boolean authPass(String encryptPass) {
+		return getPass().equals(encryptPass);
+	}
 	
 	
 	

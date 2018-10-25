@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.encrypt.sha.KISA_SHA256;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.userService.UserService;
 import kr.or.ddit.user.userService.UserServiceInf;
@@ -81,8 +82,12 @@ public class LoginServlet extends HttpServlet {
 	
 		// 2.  db에서 조회한 사용자 비밀번호가 파라미터로 전송된 비밀번호와 동일한지 비교 
 		//3_1 : main.jsp로 이동
-		if(user != null &&  user.getPass().equals(password)){
-			
+		
+		String encryptPass = KISA_SHA256.encrypt(password);
+
+		
+		if(user != null &&  user.authPass(encryptPass)){
+		//if(user != null &&  user.getPass().equals(encryptPass)){
 			// redirect : 
 			//괄호에는 url를 입력하기 
 			//resp.sendRedirect("main.jsp?userId="+userId 
