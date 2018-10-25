@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <title>timeTables.jsp</title>
 
 <style type='text/css'>
@@ -20,7 +21,7 @@
 	<table>
 		<c:forEach begin="1" end="9" var="i">
 			<tr>
-			<c:forEach begin="2" end="9" var="j">
+			<c:forEach begin="2" end="${param.number}" var="j">
 					<td>${i} * ${j} = ${i*j}</td>
 			</c:forEach>
 			</tr>
