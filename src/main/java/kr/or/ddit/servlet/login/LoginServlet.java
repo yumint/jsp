@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +29,11 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		Map<String,String[]> reqMap = request.getParameterMap();
+		
+		
+		
 		
 		// 1. 사용자 아이디와 비밀번호를 reqeuest객체에서 받아온다.
 		// 2. db에서 조회해온 아이디, 비밀번호를 체크한다.
