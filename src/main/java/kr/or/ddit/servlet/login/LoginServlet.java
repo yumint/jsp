@@ -1,5 +1,4 @@
-﻿package kr.or.ddit.servlet.login;
-
+package kr.or.ddit.servlet.login;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
