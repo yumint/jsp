@@ -109,7 +109,7 @@ public class LoginServlet extends HttpServlet {
 			// session으로 만들기 
 			// 방법 1.
 			// HttpSession session = request.getSession();	// 이렇게도 사용할수 있음
-			// session.setAttribute("이름",값);
+			// session.setAttribute("이름",값); 
 			
 			
 			// 방법2.
