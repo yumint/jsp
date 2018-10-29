@@ -2,15 +2,12 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import kr.or.ddit.encrypt.sha.KISA_SHA256;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.userService.UserService;
@@ -30,11 +27,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		Map<String,String[]> reqMap = request.getParameterMap();
+		String newParameter = request.getParameter("newParameter");
 		
+		System.out.println("newParameter : " + newParameter);
 		
+		//Map<String,String[]> reqMap = request.getParameterMap();
+		//reqMap.put("newParameter", new String[]{"newValue"});
 		
-		
+
 		// 1. 사용자 아이디와 비밀번호를 reqeuest객체에서 받아온다.
 		// 2. db에서 조회해온 아이디, 비밀번호를 체크한다.
 		// 3_1. 일치할경우 main.jsp로 이동
